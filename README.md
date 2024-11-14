@@ -20,6 +20,7 @@ This project aims to provide real-time feedback on yoga pose accuracy. By analyz
 ### Prerequisites
 - Python 3.7+
 - TensorFlow, Flask, and other libraries in requirements.txt
+- Download the trained model file from [this link](https://drive.google.com/file/d/1K6U1fH8vsZZGcKIU6J2WaolAgVn_ojgS/view?usp=drive_link) and place it in the project directory.
 
 ### Installation
 1. Clone this repository:
