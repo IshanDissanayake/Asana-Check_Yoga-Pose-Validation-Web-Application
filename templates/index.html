@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asana Check</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body> 
+    <div class="container">
+        <h1>Asana Check</h1>
+        <h3>Your Yoga Pose Companion</h3>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <!-- pose selection -->
+            <div class="form-group">
+                <label for="pose">Select Yoga Pose to Validate:</label>
+                <select name="pose" id="pose">
+                    <option value="" disabled selected>Select Pose</option>
+                    {% for pose in poses %}
+                        <option value="{{ pose }}" {% if selected_pose == pose %}selected{% endif %}>{{ pose }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!--image selection-->
+            <div class="form-group">
+                <label for="file">Upload Image</label>
+                <input type="file" name="file" id="file" accept="image" required/>
+            </div>
+
+            <button type="submit">Validate Asana</button>
+        </form>
+
+        <!--showing results and uploaded image-->
+        {% if file_path %}
+        <div class="result">
+            <img src="{{ url_for('static', filename=file_path.replace('\\', '/').split('static/')[1]) }}" alt="Image Uploaded">
+            <h3 style="color: {{ result_color }};">{{ result_text }}</h3>
+        </div>
+        {% endif %}
+
+        <!--showing Flash Messages-->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
